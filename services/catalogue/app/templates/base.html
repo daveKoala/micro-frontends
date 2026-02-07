@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }} | Catalogue Service</title>
     <!-- Shared styles (single source of truth) -->
-    <link rel="stylesheet" href="/shared/css/base.css">
+    <link rel="stylesheet" href="{{ request.state.shared_assets_url }}/css/base.css">
     <!-- Service-specific styles -->
     <link rel="stylesheet" href="{{ base_path }}/static/css/style.css">
 </head>
@@ -22,20 +22,18 @@
     <!-- Footer loaded from shared partials -->
     <footer class="footer"></footer>
 
-    <!-- Shared assets configuration -->
+    <!-- Shared assets configuration (from environment) -->
     <script>
         window.SHARED_CONFIG = {
-            // Change to CDN URL to pull production assets:
-            // baseUrl: 'https://cdn.example.com/shared',
-            baseUrl: '/shared',
+            baseUrl: '{{ request.state.shared_assets_url }}',
             cache: true,
-            version: '1.0.0'
+            version: '{{ request.state.shared_assets_version }}'
         };
     </script>
     <!-- Shared scripts -->
-    <script src="/shared/js/event-bus.js"></script>
-    <script src="/shared/js/auth.js"></script>
-    <script src="/shared/js/loader.js"></script>
+    <script src="{{ request.state.shared_assets_url }}/js/event-bus.js"></script>
+    <script src="{{ request.state.shared_assets_url }}/js/auth.js"></script>
+    <script src="{{ request.state.shared_assets_url }}/js/loader.js"></script>
     <!-- Service-specific scripts -->
     <script src="{{ base_path }}/static/js/main.js"></script>
 </body>

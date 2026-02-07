@@ -8,6 +8,8 @@ const app = express();
 const PORT = process.env.PORT || 5001;
 const BASE_PATH = process.env.BASE_PATH || '/booking';
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/booking';
+const SHARED_ASSETS_URL = process.env.SHARED_ASSETS_URL || '/shared';
+const SHARED_ASSETS_VERSION = process.env.SHARED_ASSETS_VERSION || '1.0.0';
 
 // Connect to MongoDB
 mongoose.connect(MONGODB_URI)
@@ -20,9 +22,11 @@ app.set('views', path.join(__dirname, '../views'));
 app.use(expressLayouts);
 app.set('layout', 'layout');
 
-// Make BASE_PATH available to all templates
+// Make config available to all templates
 app.use((req, res, next) => {
   res.locals.basePath = BASE_PATH;
+  res.locals.sharedAssetsUrl = SHARED_ASSETS_URL;
+  res.locals.sharedAssetsVersion = SHARED_ASSETS_VERSION;
   next();
 });
 

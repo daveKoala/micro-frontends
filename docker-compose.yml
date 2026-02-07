@@ -24,6 +24,9 @@ services:
       - NODE_ENV=development
       - BASE_PATH=/booking
       - PORT=5001
+      # Shared assets - change to CDN URL for test/prod
+      - SHARED_ASSETS_URL=${SHARED_ASSETS_URL:-/shared}
+      - SHARED_ASSETS_VERSION=${SHARED_ASSETS_VERSION:-1.0.0}
     depends_on:
       - booking-db
     networks:
@@ -45,6 +48,9 @@ services:
       - ENVIRONMENT=development
       - BASE_PATH=/catalogue
       - PORT=5002
+      # Shared assets - change to CDN URL for test/prod
+      - SHARED_ASSETS_URL=${SHARED_ASSETS_URL:-/shared}
+      - SHARED_ASSETS_VERSION=${SHARED_ASSETS_VERSION:-1.0.0}
     depends_on:
       - catalogue-db
     networks:

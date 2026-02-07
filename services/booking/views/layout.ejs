@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= title %> | Booking Service</title>
   <!-- Shared styles (single source of truth) -->
-  <link rel="stylesheet" href="/shared/css/base.css">
+  <link rel="stylesheet" href="<%= sharedAssetsUrl %>/css/base.css">
   <!-- Service-specific styles -->
   <link rel="stylesheet" href="<%= basePath %>/static/css/style.css">
 </head>
@@ -22,20 +22,18 @@
   <!-- Footer loaded from shared partials -->
   <footer class="footer"></footer>
 
-  <!-- Shared assets configuration -->
+  <!-- Shared assets configuration (from environment) -->
   <script>
     window.SHARED_CONFIG = {
-      // Change to CDN URL to pull production assets:
-      // baseUrl: 'https://cdn.example.com/shared',
-      baseUrl: '/shared',
+      baseUrl: '<%= sharedAssetsUrl %>',
       cache: true,
-      version: '1.0.0'
+      version: '<%= sharedAssetsVersion %>'
     };
   </script>
   <!-- Shared scripts -->
-  <script src="/shared/js/event-bus.js"></script>
-  <script src="/shared/js/auth.js"></script>
-  <script src="/shared/js/loader.js"></script>
+  <script src="<%= sharedAssetsUrl %>/js/event-bus.js"></script>
+  <script src="<%= sharedAssetsUrl %>/js/auth.js"></script>
+  <script src="<%= sharedAssetsUrl %>/js/loader.js"></script>
   <!-- Service-specific scripts -->
   <script src="<%= basePath %>/static/js/main.js"></script>
 </body>

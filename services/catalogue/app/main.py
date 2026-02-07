@@ -9,6 +9,8 @@ from app.routes.catalogue import router as catalogue_router
 
 MONGODB_URI = os.getenv("MONGODB_URI", "mongodb://localhost:27017/catalogue")
 BASE_PATH = os.getenv("BASE_PATH", "/catalogue")
+SHARED_ASSETS_URL = os.getenv("SHARED_ASSETS_URL", "/shared")
+SHARED_ASSETS_VERSION = os.getenv("SHARED_ASSETS_VERSION", "1.0.0")
 
 # Database connection
 db_client = None
@@ -101,6 +103,8 @@ templates = Jinja2Templates(directory="app/templates")
 @app.middleware("http")
 async def add_base_path(request: Request, call_next):
     request.state.base_path = BASE_PATH
+    request.state.shared_assets_url = SHARED_ASSETS_URL
+    request.state.shared_assets_version = SHARED_ASSETS_VERSION
     request.state.db = db
     response = await call_next(request)
     return response
