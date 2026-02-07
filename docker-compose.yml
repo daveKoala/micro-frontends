@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./packages/shared:/usr/share/nginx/shared:ro
+    depends_on:
+      - booking
+      - catalogue
+    networks:
+      - micro-frontend
+
+  booking:
+    build: ./services/booking
+    volumes:
+      - ./services/booking:/app
+      - /app/node_modules
+    environment:
+      - MONGODB_URI=mongodb://booking-db:27017/booking
+      - NODE_ENV=development
+      - BASE_PATH=/booking
+      - PORT=5001
+    depends_on:
+      - booking-db
+    networks:
+      - micro-frontend
+
+  booking-db:
+    image: mongo:7
+    volumes:
+      - booking-data:/data/db
+    networks:
+      - micro-frontend
+
+  catalogue:
+    build: ./services/catalogue
+    volumes:
+      - ./services/catalogue:/app
+    environment:
+      - MONGODB_URI=mongodb://catalogue-db:27017/catalogue
+      - ENVIRONMENT=development
+      - BASE_PATH=/catalogue
+      - PORT=5002
+    depends_on:
+      - catalogue-db
+    networks:
+      - micro-frontend
+
+  catalogue-db:
+    image: mongo:7
+    volumes:
+      - catalogue-data:/data/db
+    networks:
+      - micro-frontend
+
+volumes:
+  booking-data:
+  catalogue-data:
+
+networks:
+  micro-frontend:
+    driver: bridge

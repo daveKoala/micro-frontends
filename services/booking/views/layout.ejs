@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> | Booking Service</title>
+  <!-- Shared styles (single source of truth) -->
+  <link rel="stylesheet" href="/shared/css/base.css">
+  <!-- Service-specific styles -->
+  <link rel="stylesheet" href="<%= basePath %>/static/css/style.css">
+</head>
+<body>
+  <!-- Header injected by shared/js/navigation.js -->
+  <header class="header"></header>
+
+  <main class="main">
+    <div class="container">
+      <%- body %>
+    </div>
+  </main>
+
+  <!-- Footer injected by shared/js/navigation.js -->
+  <footer class="footer"></footer>
+
+  <!-- Shared scripts (single source of truth) -->
+  <script src="/shared/js/event-bus.js"></script>
+  <script src="/shared/js/auth.js"></script>
+  <script src="/shared/js/navigation.js"></script>
+  <!-- Service-specific scripts -->
+  <script src="<%= basePath %>/static/js/main.js"></script>
+</body>
+</html>

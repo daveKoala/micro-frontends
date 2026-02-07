@@ -1,0 +1,45 @@
+<h1>Bookings</h1>
+
+<% if (typeof error !== 'undefined' && error) { %>
+  <div class="alert alert-error"><%= error %></div>
+<% } %>
+
+<div class="actions">
+  <a href="<%= basePath %>/new" class="btn btn-primary">New Booking</a>
+</div>
+
+<% if (bookings && bookings.length > 0) { %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Date</th>
+        <th>Service</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% bookings.forEach(booking => { %>
+        <tr>
+          <td><%= booking.name %></td>
+          <td><%= booking.email %></td>
+          <td><%= new Date(booking.date).toLocaleDateString() %></td>
+          <td><%= booking.service %></td>
+          <td>
+            <span class="badge badge-<%= booking.status %>"><%= booking.status %></span>
+          </td>
+          <td>
+            <a href="<%= basePath %>/<%= booking._id %>" class="btn btn-small">Edit</a>
+            <form action="<%= basePath %>/<%= booking._id %>/delete" method="POST" style="display: inline;">
+              <button type="submit" class="btn btn-small btn-danger" onclick="return confirm('Delete this booking?')">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+<% } else { %>
+  <p class="empty-state">No bookings yet. <a href="<%= basePath %>/new">Create your first booking</a>.</p>
+<% } %>

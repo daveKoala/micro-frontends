@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Product Catalogue</h1>
+
+<div class="filters">
+    <span>Filter by category:</span>
+    <a href="{{ base_path }}" class="filter-link {% if not current_category %}active{% endif %}">All</a>
+    {% for category in categories %}
+    <a href="{{ base_path }}?category={{ category }}"
+       class="filter-link {% if current_category == category %}active{% endif %}">
+        {{ category | capitalize }}
+    </a>
+    {% endfor %}
+</div>
+
+<div class="actions">
+    <a href="{{ base_path }}/new" class="btn btn-primary">Add Product</a>
+</div>
+
+{% if products %}
+<div class="product-grid">
+    {% for product in products %}
+    <div class="product-card">
+        <img src="{{ product.image }}" alt="{{ product.name }}" class="product-image">
+        <div class="product-info">
+            <h3 class="product-name">{{ product.name }}</h3>
+            <p class="product-category">{{ product.category | capitalize }}</p>
+            <p class="product-price">${{ "%.2f"|format(product.price) }}</p>
+            <p class="product-stock">
+                {% if product.stock > 0 %}
+                <span class="in-stock">In Stock ({{ product.stock }})</span>
+                {% else %}
+                <span class="out-of-stock">Out of Stock</span>
+                {% endif %}
+            </p>
+            <div class="product-actions">
+                <a href="{{ base_path }}/product/{{ product._id }}" class="btn btn-small">View</a>
+                <a href="{{ base_path }}/product/{{ product._id }}/edit" class="btn btn-small">Edit</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p class="empty-state">No products found. <a href="{{ base_path }}/new">Add your first product</a>.</p>
+{% endif %}
+{% endblock %}

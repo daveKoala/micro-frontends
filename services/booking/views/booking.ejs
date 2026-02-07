@@ -1,0 +1,47 @@
+<h1><%= title %></h1>
+
+<% if (typeof error !== 'undefined' && error) { %>
+  <div class="alert alert-error"><%= error %></div>
+<% } %>
+
+<% if (action === 'create' || action === 'edit') { %>
+  <form action="<%= action === 'create' ? basePath : basePath + '/' + booking._id %>" method="POST" class="form">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" value="<%= booking ? booking.name : '' %>" required>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" value="<%= booking ? booking.email : '' %>" required>
+    </div>
+
+    <div class="form-group">
+      <label for="date">Date</label>
+      <input type="date" id="date" name="date" value="<%= booking && booking.date ? new Date(booking.date).toISOString().split('T')[0] : '' %>" required>
+    </div>
+
+    <div class="form-group">
+      <label for="service">Service</label>
+      <select id="service" name="service" required>
+        <option value="">Select a service</option>
+        <option value="consultation" <%= booking && booking.service === 'consultation' ? 'selected' : '' %>>Consultation</option>
+        <option value="appointment" <%= booking && booking.service === 'appointment' ? 'selected' : '' %>>Appointment</option>
+        <option value="meeting" <%= booking && booking.service === 'meeting' ? 'selected' : '' %>>Meeting</option>
+        <option value="other" <%= booking && booking.service === 'other' ? 'selected' : '' %>>Other</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="notes">Notes</label>
+      <textarea id="notes" name="notes" rows="4"><%= booking ? booking.notes || '' : '' %></textarea>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">
+        <%= action === 'create' ? 'Create Booking' : 'Update Booking' %>
+      </button>
+      <a href="<%= basePath %>" class="btn">Cancel</a>
+    </div>
+  </form>
+<% } %>

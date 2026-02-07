@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="breadcrumb">
+    <a href="{{ base_path }}">Products</a> / {{ title }}
+</div>
+
+<h1>{{ title }}</h1>
+
+<form action="{% if action == 'create' %}{{ base_path }}{% else %}{{ base_path }}/product/{{ product._id }}{% endif %}"
+      method="POST"
+      class="form">
+
+    <div class="form-group">
+        <label for="name">Product Name</label>
+        <input type="text" id="name" name="name" value="{{ product.name if product else '' }}" required>
+    </div>
+
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" name="description" rows="4" required>{{ product.description if product else '' }}</textarea>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label for="price">Price ($)</label>
+            <input type="number" id="price" name="price" step="0.01" min="0"
+                   value="{{ product.price if product else '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="stock">Stock</label>
+            <input type="number" id="stock" name="stock" min="0"
+                   value="{{ product.stock if product else '0' }}" required>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="category">Category</label>
+        <select id="category" name="category" required>
+            <option value="">Select a category</option>
+            <option value="electronics" {% if product and product.category == 'electronics' %}selected{% endif %}>Electronics</option>
+            <option value="furniture" {% if product and product.category == 'furniture' %}selected{% endif %}>Furniture</option>
+            <option value="clothing" {% if product and product.category == 'clothing' %}selected{% endif %}>Clothing</option>
+            <option value="books" {% if product and product.category == 'books' %}selected{% endif %}>Books</option>
+            <option value="other" {% if product and product.category == 'other' %}selected{% endif %}>Other</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="image">Image URL</label>
+        <input type="url" id="image" name="image"
+               value="{{ product.image if product else '' }}"
+               placeholder="https://example.com/image.jpg">
+    </div>
+
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">
+            {% if action == 'create' %}Add Product{% else %}Update Product{% endif %}
+        </button>
+        <a href="{{ base_path }}" class="btn">Cancel</a>
+    </div>
+</form>
+{% endblock %}
