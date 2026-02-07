@@ -346,3 +346,101 @@ h1 {
 .footer a:hover {
     color: var(--color-white);
 }
+
+/* Shared Debug Panel */
+.mf-debug-panel {
+    position: fixed;
+    bottom: var(--spacing-4);
+    right: var(--spacing-4);
+    z-index: 2147483647;
+    font-size: 12px;
+    color: var(--color-gray-800);
+    display: block;
+    visibility: visible;
+    pointer-events: none;
+}
+
+.mf-debug-toggle {
+    background: var(--color-gray-800);
+    color: var(--color-white);
+    border: none;
+    border-radius: 9999px;
+    padding: var(--spacing-2) var(--spacing-4);
+    cursor: pointer;
+    font-size: 12px;
+    pointer-events: auto;
+}
+
+.mf-debug-body {
+    display: none;
+    margin-top: var(--spacing-2);
+    width: 320px;
+    max-height: 280px;
+    overflow: hidden;
+    background: var(--color-white);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    pointer-events: auto;
+}
+
+.mf-debug-body.is-open {
+    display: block;
+}
+
+.mf-debug-title {
+    padding: var(--spacing-3) var(--spacing-4);
+    font-weight: 600;
+    background: var(--color-gray-50);
+    border-bottom: 1px solid var(--color-gray-200);
+    display: flex;
+    justify-content: space-between;
+}
+
+.mf-debug-service {
+    font-weight: 500;
+    color: var(--color-gray-500);
+}
+
+.mf-debug-list {
+    max-height: 230px;
+    overflow-y: auto;
+}
+
+.mf-debug-item {
+    padding: var(--spacing-3) var(--spacing-4);
+    border-bottom: 1px solid var(--color-gray-100);
+}
+
+.mf-debug-item.in .mf-debug-direction {
+    color: var(--color-secondary);
+}
+
+.mf-debug-item.out .mf-debug-direction {
+    color: var(--color-primary);
+}
+
+.mf-debug-meta {
+    display: flex;
+    gap: var(--spacing-2);
+    font-size: 11px;
+    color: var(--color-gray-500);
+    margin-bottom: var(--spacing-1);
+}
+
+.mf-debug-type {
+    font-weight: 600;
+    color: var(--color-gray-700);
+}
+
+.mf-debug-payload {
+    display: flex;
+    gap: var(--spacing-2);
+    color: var(--color-gray-700);
+    word-break: break-word;
+}
+
+.mf-debug-source {
+    font-weight: 600;
+    color: var(--color-gray-500);
+}

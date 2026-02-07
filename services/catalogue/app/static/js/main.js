@@ -47,26 +47,26 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Cross-microsite communication via BroadcastChannel
-const channel = new BroadcastChannel('micro-frontend');
+// Cross-microsite communication via shared EventBus
+const eventBus = window.eventBus;
+const EventTypes = window.EventTypes || {};
 
-channel.onmessage = function(event) {
-    console.log('Received message from another microsite:', event.data);
+if (eventBus && EventTypes.USER_UPDATED) {
+    eventBus.on(EventTypes.USER_UPDATED, (payload, source) => {
+        console.log('Received user update from', source, payload);
+    });
+}
 
-    if (event.data.type === 'user:updated') {
-        // Handle user update event
-        console.log('User updated:', event.data.user);
-    }
-
-    if (event.data.type === 'booking:created') {
-        // Could show notification about new booking
-        console.log('New booking created:', event.data);
-    }
-};
+if (eventBus && EventTypes.BOOKING_CREATED) {
+    eventBus.on(EventTypes.BOOKING_CREATED, (payload, source) => {
+        console.log('New booking created from', source, payload);
+    });
+}
 
 // Helper to broadcast events
 function broadcastEvent(type, data) {
-    channel.postMessage({ type, ...data, source: 'catalogue' });
+    if (!eventBus) return;
+    eventBus.emit(type, data);
 }
 
 // Example: Broadcast when adding to cart (if we had cart functionality)

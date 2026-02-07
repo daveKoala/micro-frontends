@@ -56,4 +56,4 @@ Then visit:
 1. Create service in `services/`
 2. Add to `docker-compose.yml`
 3. Add route in `nginx/nginx.conf`
-4. Add nav link in `packages/shared/js/navigation.js`
+4. Add nav link in `packages/shared/html/header.html`

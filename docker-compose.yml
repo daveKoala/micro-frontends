@@ -20,10 +20,10 @@ services:
       - ./services/booking:/app
       - /app/node_modules
     environment:
-      - MONGODB_URI=mongodb://booking-db:27017/booking
+      - MONGODB_URI=${BOOKING_MONGODB_URI:-mongodb://booking-db:27017/booking}
       - NODE_ENV=development
       - BASE_PATH=/booking
-      - PORT=5001
+      - PORT=${BOOKING_PORT:-5001}
       # Shared assets - change to CDN URL for test/prod
       - SHARED_ASSETS_URL=${SHARED_ASSETS_URL:-/shared}
       - SHARED_ASSETS_VERSION=${SHARED_ASSETS_VERSION:-1.0.0}
@@ -44,10 +44,10 @@ services:
     volumes:
       - ./services/catalogue:/app
     environment:
-      - MONGODB_URI=mongodb://catalogue-db:27017/catalogue
+      - MONGODB_URI=${CATALOGUE_MONGODB_URI:-mongodb://catalogue-db:27017/catalogue}
       - ENVIRONMENT=development
       - BASE_PATH=/catalogue
-      - PORT=5002
+      - PORT=${CATALOGUE_PORT:-5002}
       # Shared assets - change to CDN URL for test/prod
       - SHARED_ASSETS_URL=${SHARED_ASSETS_URL:-/shared}
       - SHARED_ASSETS_VERSION=${SHARED_ASSETS_VERSION:-1.0.0}
