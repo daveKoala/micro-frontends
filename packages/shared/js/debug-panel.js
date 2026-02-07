@@ -22,6 +22,11 @@
         const panel = document.createElement('div');
         panel.id = PANEL_ID;
         panel.className = 'mf-debug-panel';
+        // Defensive inline styles in case shared CSS is cached
+        panel.style.position = 'fixed';
+        panel.style.bottom = '16px';
+        panel.style.right = '16px';
+        panel.style.zIndex = '2147483647';
         panel.innerHTML = `
             <button class="mf-debug-toggle" type="button">MF Events</button>
             <div class="mf-debug-body">
