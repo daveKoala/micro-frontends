@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ base_path }}/static/css/style.css">
 </head>
 <body>
-    <!-- Header injected by shared/js/navigation.js -->
+    <!-- Header loaded from shared partials -->
     <header class="header"></header>
 
     <main class="main">
@@ -19,13 +19,23 @@
         </div>
     </main>
 
-    <!-- Footer injected by shared/js/navigation.js -->
+    <!-- Footer loaded from shared partials -->
     <footer class="footer"></footer>
 
-    <!-- Shared scripts (single source of truth) -->
+    <!-- Shared assets configuration -->
+    <script>
+        window.SHARED_CONFIG = {
+            // Change to CDN URL to pull production assets:
+            // baseUrl: 'https://cdn.example.com/shared',
+            baseUrl: '/shared',
+            cache: true,
+            version: '1.0.0'
+        };
+    </script>
+    <!-- Shared scripts -->
     <script src="/shared/js/event-bus.js"></script>
     <script src="/shared/js/auth.js"></script>
-    <script src="/shared/js/navigation.js"></script>
+    <script src="/shared/js/loader.js"></script>
     <!-- Service-specific scripts -->
     <script src="{{ base_path }}/static/js/main.js"></script>
 </body>
